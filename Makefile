@@ -12,4 +12,4 @@ run:
 
 .PHONY: lint
 lint:
-	@hlint --report bin
+	@hlint bin
