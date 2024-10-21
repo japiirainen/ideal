@@ -1,4 +1,6 @@
 module Main (main) where
 
+import qualified Ideal
+
 main :: IO ()
-main = putStrLn "Hello, World!"
+main = Ideal.main
