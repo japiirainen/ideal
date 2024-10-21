@@ -1,0 +1,23 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.36.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:          ideal
+version:       0.0.1
+author:        Joona Piirainen
+maintainer:    Joona Piirainen
+copyright:     2024 Joona Piirainen
+license:       MIT
+license-file:  LICENSE
+build-type:    Simple
+
+executable ideal
+  main-is: bin/Main.hs
+  other-modules:
+      Paths_ideal
+  ghc-options: -Wall -Wno-missing-pattern-synonym-signatures -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.17.2.1
+  default-language: Haskell2010

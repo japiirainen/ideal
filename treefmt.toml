@@ -1,0 +1,11 @@
+[formatter.nixfmt-rfc-style]
+command = "nixfmt"
+includes = ["*.nix"]
+
+[formatter.fourmolu]
+command = "fourmolu"
+includes = ["*.hs"]
+
+[formatter.cabal-fmt]
+command = "cabal-fmt"
+includes = ["*.cabal"]

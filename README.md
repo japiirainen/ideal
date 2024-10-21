@@ -1,2 +1,8 @@
+# Table Of Contents
+
+- [Table Of Contents](#table-of-contents)
+- [ideal](#ideal)
+
 # ideal
-A computer algebra system (CAS) and a programming language
+
+`ideal` is a computer algebra system (CAS) and a programming language.
