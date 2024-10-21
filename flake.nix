@@ -37,6 +37,7 @@
               hlint
               cabal-fmt
               fourmolu
+              ghcid
             ]
             ++ (with pkgs; [
               treefmt
