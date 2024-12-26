@@ -1,18 +1,19 @@
--- | Haskell language pragma
+{-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE BlockArguments #-}
 
--- | Haskell module declaration
+-- \| Haskell module declaration
+
+-- | Haskell language pragma
 module Ideal.Website (app, prerenderTo) where
 
--- | Miso framework import
+-- \| Miso framework import
+
+import Data.Text qualified as Text
+import Ideal qualified
+import Lucid qualified as L
 import Miso
 import Miso.String
-
-import qualified Lucid as L
-import qualified Data.Text as Text
-import qualified Ideal
 
 -- | Type synonym for an application model
 type Model = Int
@@ -33,36 +34,38 @@ app :: JSM ()
 app = miso \_url -> App {..}
   where
     initialAction = SayHelloWorld -- initial action to be executed on application load
-    model  = initialModel
-    update = updateModel          -- update function
-    view   = viewModel            -- view function
-    events = defaultEvents        -- default delegated events
-    subs   = []                   -- empty subscription list
-    mountPoint = Nothing          -- mount point for application (Nothing defaults to 'body')
-    logLevel = Off                -- used during prerendering to see if the VDOM and DOM are in sync (only applies to `miso` function)
+    model = initialModel
+    update = updateModel -- update function
+    view = viewModel -- view function
+    events = defaultEvents -- default delegated events
+    subs = [] -- empty subscription list
+    mountPoint = Nothing -- mount point for application (Nothing defaults to 'body')
+    logLevel = Off -- used during prerendering to see if the VDOM and DOM are in sync (only applies to `miso` function)
 
 -- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
 updateModel action m =
   case action of
-    AddOne
-      -> noEff (m + 1)
-    SubtractOne
-      -> noEff (m - 1)
-    NoOp
-      -> noEff m
-    SayHelloWorld
-      -> m <# do consoleLog Ideal.message >> pure NoOp
+    AddOne ->
+      noEff (m + 1)
+    SubtractOne ->
+      noEff (m - 1)
+    NoOp ->
+      noEff m
+    SayHelloWorld ->
+      m <# do consoleLog Ideal.message >> pure NoOp
 
 -- | Constructs a virtual DOM from a model
 viewModel :: Model -> View Action
-viewModel x = div_ [] [
-   button_ [ onClick AddOne ] [ text "+" ]
- , text (ms x)
- , button_ [ onClick SubtractOne ] [ text "-" ]
- ]
+viewModel x =
+  div_
+    []
+    [ button_ [onClick AddOne] [text "+"],
+      text (ms x),
+      button_ [onClick SubtractOne] [text "-"]
+    ]
 
- --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Pre-rendering
 
 prerenderTo :: FilePath -> IO ()

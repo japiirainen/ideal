@@ -1,8 +1,8 @@
 module Main (main) where
 
 import Data.ByteString.Lazy qualified as BL
-import Language.Javascript.JSaddle.Wasm.JS (jsaddleScript)
 import Ideal.Website (prerenderTo)
+import Language.Javascript.JSaddle.Wasm.JS (jsaddleScript)
 import System.Environment (getArgs)
 
 main :: IO ()

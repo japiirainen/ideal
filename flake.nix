@@ -38,8 +38,23 @@
         website = import ./website { inherit system inputs; };
       in
       {
-        packages.default = haskellPackages.ideal;
-        packages.ideal = haskellPackages.ideal;
+        packages = {
+          inherit pre-commit-check;
+          default = haskellPackages.ideal;
+          ideal = haskellPackages.ideal;
+        };
+
+        apps = {
+          format = flake-utils.lib.mkApp {
+            drv = pkgs.writeShellApplication {
+              name = "ideal-format";
+              text = builtins.readFile ./nix/format.sh;
+              runtimeInputs = [
+                haskellPackages.ormolu
+              ];
+            };
+          };
+        };
 
         devShells = {
           default = haskellPackages.shellFor {
