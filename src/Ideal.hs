@@ -1,4 +1,8 @@
-module Ideal (main) where
+{-# LANGUAGE OverloadedStrings #-}
 
-main :: IO ()
-main = putStrLn "`ideal`"
+module Ideal (message) where
+
+import Data.Text (Text)
+
+message :: Text
+message = "`ideal`"
