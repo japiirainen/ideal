@@ -29,7 +29,7 @@
         pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
           src = ./.;
           hooks = {
-            cabal-gild.enable = true;
+            cabal-fmt.enable = true;
             nixfmt-rfc-style.enable = true;
             deadnix.enable = true;
           };
