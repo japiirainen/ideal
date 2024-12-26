@@ -6,11 +6,12 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     ghc-wasm-meta.url = "gitlab:ghc/ghc-wasm-meta?host=gitlab.haskell.org";
+
+    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
   };
 
   outputs =
     inputs@{
-      self,
       nixpkgs,
       flake-utils,
       ...
@@ -19,11 +20,20 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        overlay = final: prev: {
+        overlay = _final: prev: {
           ideal = prev.callCabal2nix "ideal" ./. { };
         };
 
         haskellPackages = pkgs.haskellPackages.extend overlay;
+
+        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            cabal-gild.enable = true;
+            nixfmt-rfc-style.enable = true;
+            deadnix.enable = true;
+          };
+        };
 
         website = import ./website { inherit system inputs; };
       in
@@ -53,9 +63,7 @@
                 nixfmt-rfc-style
               ]);
 
-            shellHook = ''
-              ${pkgs.cabal-install}/bin/cabal build all
-            '';
+            inherit (pre-commit-check) shellHook;
           };
 
           website = website.shell;
