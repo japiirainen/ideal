@@ -48,10 +48,17 @@
           format = flake-utils.lib.mkApp {
             drv = pkgs.writeShellApplication {
               name = "ideal-format";
-              text = builtins.readFile ./nix/format.sh;
               runtimeInputs = [
                 haskellPackages.ormolu
+                haskellPackages.cabal-fmt
               ];
+              text = ''
+                export LANG="C.UTF-8"
+                export dirs="src bin website/app website/src"
+                # shellcheck disable=SC2046,SC2086
+                ormolu -m inplace $(find $dirs -type f -name "*.hs" -o -name "*.hs-boot")
+                cabal-fmt --inplace ideal.cabal website/website.cabal
+              '';
             };
           };
         };
