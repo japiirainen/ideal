@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     ghc-wasm-meta.url = "gitlab:ghc/ghc-wasm-meta?host=gitlab.haskell.org";
@@ -69,21 +70,16 @@
               p: with p; [
                 ideal
               ];
-            buildInputs =
-              with haskellPackages;
-              [
-                cabal-install
-                haskell-language-server
-                hpack
-                hlint
-                cabal-fmt
-                ormolu
-                ghcid
-              ]
-              ++ (with pkgs; [
-                treefmt
-                nixfmt-rfc-style
-              ]);
+
+            buildInputs = with haskellPackages; [
+              cabal-install
+              haskell-language-server
+              hpack
+              hlint
+              cabal-fmt
+              ormolu
+              ghcid
+            ];
 
             inherit (pre-commit-check) shellHook;
           };
