@@ -1,0 +1,7 @@
+[package]
+name = "ideal"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+interpreter = { path = "../interpreter/" }
