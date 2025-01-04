@@ -8,23 +8,20 @@ use std::path::Path;
 use crate::cli::{Commands, Options};
 
 use clap::Parser;
+use interpreter::interpret;
 
 pub fn main() {
     let options = Options::parse();
 
     match options.command {
         Commands::Interpret { filepath } => {
-            let input = get_input(filepath);
+            let input = get_input(filepath.clone());
             match input {
-                Ok(input) => interpret(input),
+                Ok(input) => interpret(Path::new(&filepath), input),
                 Err(e) => eprintln!("{}", e),
             }
         }
     }
-}
-
-fn interpret(input: String) {
-    println!("{}", input);
 }
 
 fn get_input(filepath: String) -> Result<String, String> {
