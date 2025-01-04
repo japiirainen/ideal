@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use web_sys::window;
 
 fn main() {
@@ -6,7 +8,15 @@ fn main() {
         .and_then(|win| win.document())
         .expect("Could not access the document");
     let body = document.body().expect("Could not access document.body");
-    let text_node = document.create_text_node(&format!("`ideal`: {}", interpreter::add(2, 5)));
-    body.append_child(text_node.as_ref())
-        .expect("Failed to append text");
+
+    match interpreter::interpret(Path::new("<user>"), "1 + 2".to_string()) {
+        Ok(_) => {}
+        Err(e) => {
+            let text_node = document.create_text_node(&format!("{}", e.display()));
+            body.append_child(text_node.as_ref())
+                .expect("Failed to append text");
+            body.append_child(text_node.as_ref())
+                .expect("Failed to append text");
+        }
+    }
 }

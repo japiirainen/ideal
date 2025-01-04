@@ -17,7 +17,10 @@ pub fn main() {
         Commands::Interpret { filepath } => {
             let input = get_input(filepath.clone());
             match input {
-                Ok(input) => interpret(Path::new(&filepath), input),
+                Ok(input) => match interpret(Path::new(&filepath), input) {
+                    Ok(_) => {}
+                    Err(e) => eprintln!("{}", e.display()),
+                },
                 Err(e) => eprintln!("{}", e),
             }
         }
