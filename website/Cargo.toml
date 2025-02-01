@@ -6,7 +6,7 @@ edition.workspace = true
 [dependencies]
 interpreter = { path = "../interpreter" }
 console_error_panic_hook = "0.1.7"
-web-sys = { version = "0.3.76", features = [
+web-sys = { version = "0.3.77", features = [
   "Window",
   "Document",
   "HtmlElement",
