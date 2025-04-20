@@ -1,0 +1,17 @@
+cabal-version: 3.0
+name:          ideal
+version:       0.1.0.0
+license:       MIT
+author:        Joona Piirainen
+maintainer:    japiirainen@proton.me
+build-type:    Simple
+
+common warnings
+  ghc-options: -Wall -Wcompat -Werror
+
+executable ideal
+  import:           warnings
+  main-is:          Main.hs
+  hs-source-dirs:   src
+  default-language: Haskell2010
+  build-depends:    base >=4.7 && <5
