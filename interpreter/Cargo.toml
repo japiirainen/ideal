@@ -1,7 +1,0 @@
-[package]
-name = "interpreter"
-version.workspace = true
-edition.workspace = true
-
-[dependencies]
-colored = "2.2.0"
